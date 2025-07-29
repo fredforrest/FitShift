@@ -20,8 +20,8 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
   const [selectedDuration, setSelectedDuration] = useState<number>(10);
 
   const focusOptions = [
-    { key: 'full', label: 'Full Body', icon: '💪', description: 'Work your entire body' },
-    { key: 'upper', label: 'Upper Body', icon: '🏋️', description: 'Focus on arms, chest & shoulders' },
+    { key: 'full', label: 'Full Body', icon: '🏋️', description: 'Work your entire body' },
+    { key: 'upper', label: 'Upper Body', icon: '💪', description: 'Focus on arms, chest & shoulders' },
     { key: 'lower', label: 'Lower Body', icon: '🦵', description: 'Strengthen legs & glutes' },
   ] as const;
 
