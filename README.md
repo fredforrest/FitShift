@@ -58,7 +58,7 @@ FitShift is a visually stunning React Native fitness app designed to promote hea
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/fitshift.git
+   git clone https://github.com/fredforrest/fitshift.git
    cd fitshift
    ```
 
