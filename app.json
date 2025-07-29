@@ -1,4 +1,7 @@
 {
   "name": "FitShift",
-  "displayName": "FitShift"
+  "displayName": "FitShift - Active Break Companion",
+  "version": "1.0.0",
+  "bundleId": "com.yourcompany.fitshift",
+  "description": "Transform your work breaks into powerful wellness moments with bodyweight exercises designed for the workplace."
 }
