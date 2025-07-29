@@ -43,7 +43,7 @@ FitShift is a visually stunning React Native fitness app designed to promote hea
 - `ReadyScreen`: Countdown preparation between exercises
 
 ### **Intelligent Systems**
-- `WorkoutGenerator`: AI-powered exercise selection algorithm
+- `WorkoutGenerator`: Intelligent exercise selection algorithm
 - `Exercise Database`: Comprehensive library of bodyweight movements
 - Progress tracking with completion analytics
 
