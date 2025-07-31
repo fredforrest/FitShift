@@ -7,6 +7,7 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
+import { useLocalization } from '../localization/LocalizationContext';
 
 const { width } = Dimensions.get('window');
 
@@ -18,32 +19,38 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
   const [selectedFocus, setSelectedFocus] = useState<'full' | 'upper' | 'lower'>('full');
   const [selectedDifficulty, setSelectedDifficulty] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
   const [selectedDuration, setSelectedDuration] = useState<number>(10);
+  const { t } = useLocalization();
 
   const focusOptions = [
-    { key: 'full', label: 'Full Body', icon: '🏋️', description: 'Work your entire body' },
-    { key: 'upper', label: 'Upper Body', icon: '💪', description: 'Focus on arms, chest & shoulders' },
-    { key: 'lower', label: 'Lower Body', icon: '🦵', description: 'Strengthen legs & glutes' },
+    { key: 'full', label: t.fullBody, icon: '🏋️', description: t.fullBodyDesc },
+    { key: 'upper', label: t.upperBody, icon: '💪', description: t.upperBodyDesc },
+    { key: 'lower', label: t.lowerBody, icon: '🦵', description: t.lowerBodyDesc },
   ] as const;
 
   const difficultyOptions = [
-    { key: 'beginner', label: 'Beginner', icon: '🌱', color: ['#4CAF50', '#66BB6A'] },
-    { key: 'intermediate', label: 'Intermediate', icon: '🔥', color: ['#FF9800', '#FFB74D'] },
-    { key: 'advanced', label: 'Advanced', icon: '⚡', color: ['#F44336', '#EF5350'] },
+    { key: 'beginner', label: t.beginner, icon: '🌱', color: ['#4CAF50', '#66BB6A'] },
+    { key: 'intermediate', label: t.intermediate, icon: '🔥', color: ['#FF9800', '#FFB74D'] },
+    { key: 'advanced', label: t.advanced, icon: '⚡', color: ['#F44336', '#EF5350'] },
   ] as const;
 
-  const durationOptions = [5, 10, 15, 20];
+  const durationOptions = [
+    { value: 5, label: '5min', description: 'Hurtig energi boost' },
+    { value: 10, label: '10min', description: 'Standard pause' },
+    { value: 15, label: '15min', description: 'Grundig træning' },
+    { value: 20, label: '20min', description: 'Komplet workout' }
+  ];
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>FitShift</Text>
-        <Text style={styles.headerSubtitle}>Your Active Break Companion</Text>
+        <Text style={styles.headerTitle}>{t.appTitle}</Text>
+        <Text style={styles.headerSubtitle}>{t.appSubtitle}</Text>
       </View>
 
       <View style={styles.content}>
         {/* Focus Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Choose Your Focus</Text>
+          <Text style={styles.sectionTitle}>{t.chooseFocus}</Text>
           <View style={styles.optionsContainer}>
             {focusOptions.map((option) => (
               <TouchableOpacity
@@ -74,7 +81,7 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
 
         {/* Difficulty Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Select Difficulty</Text>
+          <Text style={styles.sectionTitle}>{t.selectDifficulty}</Text>
           <View style={styles.difficultyContainer}>
             {difficultyOptions.map((option) => (
               <TouchableOpacity
@@ -103,22 +110,28 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
 
         {/* Duration Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Workout Duration</Text>
+          <Text style={styles.sectionTitle}>{t.workoutDuration}</Text>
           <View style={styles.durationContainer}>
-            {durationOptions.map((duration) => (
+            {durationOptions.map((option) => (
               <TouchableOpacity
-                key={duration}
+                key={option.value}
                 style={[
                   styles.durationOption,
-                  selectedDuration === duration && styles.selectedDuration,
+                  selectedDuration === option.value && styles.selectedDuration,
                 ]}
-                onPress={() => setSelectedDuration(duration)}
+                onPress={() => setSelectedDuration(option.value)}
               >
                 <Text style={[
                   styles.durationText,
-                  selectedDuration === duration && styles.selectedDurationText
+                  selectedDuration === option.value && styles.selectedDurationText
                 ]}>
-                  {duration}min
+                  {option.label}
+                </Text>
+                <Text style={[
+                  styles.durationDescription,
+                  selectedDuration === option.value && styles.selectedDurationDescText
+                ]}>
+                  {option.description}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -131,7 +144,7 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
           onPress={() => onStartWorkout(selectedFocus, selectedDifficulty, selectedDuration)}
         >
           <View style={styles.startButtonGradient}>
-            <Text style={styles.startButtonText}>Start Your Break 🚀</Text>
+            <Text style={styles.startButtonText}>{t.startWorkout}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -264,9 +277,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
+    marginBottom: 2,
   },
   selectedDurationText: {
     color: 'white',
+  },
+  durationDescription: {
+    fontSize: 12,
+    color: '#666',
+    textAlign: 'center',
+  },
+  selectedDurationDescText: {
+    color: 'rgba(255, 255, 255, 0.9)',
   },
   startButton: {
     marginTop: 20,

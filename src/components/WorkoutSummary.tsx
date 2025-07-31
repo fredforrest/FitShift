@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { WorkoutSession, WorkoutProgress } from '../types/Exercise';
+import { useLocalization } from '../localization/LocalizationContext';
 
 interface WorkoutSummaryProps {
   workout: WorkoutSession;
@@ -21,6 +22,7 @@ const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
   onStartNewWorkout,
   onBackToSetup,
 }) => {
+  const { t } = useLocalization();
   const completedExercises = progress.filter(p => p.completed).length;
   const totalExercises = workout.exercises.length;
   const completionRate = (completedExercises / totalExercises) * 100;
@@ -38,20 +40,20 @@ const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
 
   const getMotivationalMessage = () => {
     if (completionRate === 100) {
-      return "🎉 Outstanding work! You completed your entire break workout!";
+      return t.outstanding;
     } else if (completionRate >= 75) {
-      return "🔥 Great job! You powered through most of your workout!";
+      return t.greatJob;
     } else if (completionRate >= 50) {
-      return "💪 Good effort! Every bit of movement counts!";
+      return t.goodEffort;
     } else {
-      return "🌟 Nice start! Remember, consistency is key!";
+      return t.niceStart;
     }
   };
 
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Workout Complete!</Text>
+        <Text style={styles.headerTitle}>{t.workoutComplete}</Text>
         <Text style={styles.motivationalMessage}>
           {getMotivationalMessage()}
         </Text>
@@ -61,17 +63,17 @@ const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
         <View style={styles.statsContainer}>
           <View style={styles.statItem}>
             <Text style={styles.statNumber}>{completedExercises}</Text>
-            <Text style={styles.statLabel}>Exercises</Text>
+            <Text style={styles.statLabel}>{t.exercises}</Text>
           </View>
           
           <View style={styles.statItem}>
             <Text style={styles.statNumber}>{calculateWorkoutDuration()}</Text>
-            <Text style={styles.statLabel}>Minutes</Text>
+            <Text style={styles.statLabel}>{t.minutes}</Text>
           </View>
           
           <View style={styles.statItem}>
             <Text style={styles.statNumber}>{Math.round(completionRate)}</Text>
-            <Text style={styles.statLabel}>% Complete</Text>
+            <Text style={styles.statLabel}>{t.complete_percent}</Text>
           </View>
         </View>
 
@@ -91,7 +93,7 @@ const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
       </View>
 
       <View style={styles.exerciseList}>
-        <Text style={styles.listTitle}>Exercise Summary</Text>
+        <Text style={styles.listTitle}>{t.exerciseSummary}</Text>
         {workout.exercises.map((exercise, index) => {
           const exerciseProgress = progress.find(p => p.exerciseId === exercise.id);
           const isCompleted = exerciseProgress?.completed || false;
@@ -118,8 +120,8 @@ const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
                 
                 <Text style={styles.exerciseDetails}>
                   {exercise.executionType === 'timer' 
-                    ? `${exercise.duration}s hold`
-                    : `${exercise.reps} reps × ${exercise.sets} sets`
+                    ? `${exercise.duration}s ${t.hold.toLowerCase()}`
+                    : `${exercise.reps} ${t.reps} × ${exercise.sets} ${t.sets}`
                   }
                 </Text>
               </View>
@@ -133,27 +135,27 @@ const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
           style={[styles.button, styles.primaryButton]} 
           onPress={onStartNewWorkout}
         >
-          <Text style={styles.primaryButtonText}>Start Another Break</Text>
+          <Text style={styles.primaryButtonText}>{t.startAnother}</Text>
         </TouchableOpacity>
         
         <TouchableOpacity 
           style={[styles.button, styles.secondaryButton]} 
           onPress={onBackToSetup}
         >
-          <Text style={styles.secondaryButtonText}>Back to Setup</Text>
+          <Text style={styles.secondaryButtonText}>{t.backToSetup}</Text>
         </TouchableOpacity>
       </View>
 
       <View style={styles.tips}>
-        <Text style={styles.tipsTitle}>💡 Quick Tips</Text>
+        <Text style={styles.tipsTitle}>{t.quickTips}</Text>
         <Text style={styles.tipText}>
-          • Take active breaks every 25-30 minutes for optimal productivity
+          {t.tip1}
         </Text>
         <Text style={styles.tipText}>
-          • Stay hydrated throughout your workday
+          {t.tip2}
         </Text>
         <Text style={styles.tipText}>
-          • Mix different workout focuses throughout the week
+          {t.tip3}
         </Text>
       </View>
     </ScrollView>

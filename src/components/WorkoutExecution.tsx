@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Exercise, WorkoutSession, WorkoutProgress } from '../types/Exercise';
 import ReadyScreen from './ReadyScreen';
+import { useLocalization } from '../localization/LocalizationContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -30,6 +31,7 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [progress, setProgress] = useState<WorkoutProgress[]>([]);
   const [scaleAnim] = useState(new Animated.Value(1));
+  const { t } = useLocalization();
 
   const currentExercise = workout.exercises[currentExerciseIndex];
   const isLastExercise = currentExerciseIndex === workout.exercises.length - 1;
@@ -129,11 +131,11 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
 
   const skipExercise = () => {
     Alert.alert(
-      'Skip Exercise',
-      'Are you sure you want to skip this exercise?',
+      t.skipExercise,
+      t.skipConfirm,
       [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Skip', onPress: handleExerciseComplete },
+        { text: t.cancel, style: 'cancel' },
+        { text: t.skip, onPress: handleExerciseComplete },
       ]
     );
   };
@@ -179,7 +181,7 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
             { backgroundColor: currentExercise.type === 'active' ? '#4CAF50' : '#2196F3' }
           ]}>
             <Text style={styles.typeText}>
-              {currentExercise.type === 'active' ? 'ACTIVE' : 'HOLD'}
+              {currentExercise.type === 'active' ? t.active : t.hold}
             </Text>
           </View>
         </View>
@@ -193,19 +195,19 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
           {currentExercise.executionType === 'timer' ? (
             <View style={styles.timerContainer}>
               <Text style={styles.timerText}>{formatTime(timeRemaining)}</Text>
-              <Text style={styles.timerLabel}>Time Remaining</Text>
+              <Text style={styles.timerLabel}>{t.timeRemaining}</Text>
             </View>
           ) : (
             <View style={styles.repsContainer}>
               <Text style={styles.repsText}>{currentExercise.reps}</Text>
-              <Text style={styles.repsLabel}>Reps x {currentExercise.sets} Sets</Text>
+              <Text style={styles.repsLabel}>{t.reps} x {currentExercise.sets} {t.sets}</Text>
             </View>
           )}
         </View>
 
         {/* Instructions */}
         <View style={styles.instructionsContainer}>
-          <Text style={styles.instructionsTitle}>Instructions:</Text>
+          <Text style={styles.instructionsTitle}>{t.instructions}</Text>
           {currentExercise.instructions.map((instruction, index) => (
             <Text key={index} style={styles.instructionText}>
               {index + 1}. {instruction}
@@ -225,7 +227,7 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
             onPress={isActive ? pauseExercise : startExercise}
           >
             <Text style={styles.primaryButtonText}>
-              {isActive ? 'PAUSE' : 'START'}
+              {isActive ? t.pause : t.start}
             </Text>
           </TouchableOpacity>
         ) : (
@@ -233,17 +235,17 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
             style={[styles.primaryButton, { backgroundColor: '#4CAF50' }]}
             onPress={handleExerciseComplete}
           >
-            <Text style={styles.primaryButtonText}>COMPLETE</Text>
+            <Text style={styles.primaryButtonText}>{t.complete}</Text>
           </TouchableOpacity>
         )}
 
         <View style={styles.secondaryButtons}>
           <TouchableOpacity style={styles.secondaryButton} onPress={skipExercise}>
-            <Text style={styles.secondaryButtonText}>Skip</Text>
+            <Text style={styles.secondaryButtonText}>{t.skip}</Text>
           </TouchableOpacity>
           
           <TouchableOpacity style={styles.secondaryButton} onPress={onBackToSetup}>
-            <Text style={styles.secondaryButtonText}>Exit</Text>
+            <Text style={styles.secondaryButtonText}>{t.exit}</Text>
           </TouchableOpacity>
         </View>
       </View>

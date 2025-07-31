@@ -6,6 +6,7 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
+import { useLocalization } from '../localization/LocalizationContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -18,6 +19,7 @@ const ReadyScreen: React.FC<ReadyScreenProps> = ({ onReady, exerciseName }) => {
   const [countdown, setCountdown] = useState(3);
   const [scaleAnim] = useState(new Animated.Value(0));
   const [fadeAnim] = useState(new Animated.Value(1));
+  const { t } = useLocalization();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -58,27 +60,27 @@ const ReadyScreen: React.FC<ReadyScreenProps> = ({ onReady, exerciseName }) => {
   }, [countdown]);
 
   const getCountdownText = () => {
-    if (countdown === 0) return 'GO!';
+    if (countdown === 0) return t.go;
     return countdown.toString();
   };
 
   const getMotivationalText = () => {
     switch (countdown) {
       case 3:
-        return 'Get ready for...';
+        return t.getReady;
       case 2:
-        return 'Prepare yourself!';
+        return t.prepareYourself;
       case 1:
-        return 'Almost there!';
+        return t.almostThere;
       default:
-        return 'Let\'s do this!';
+        return t.letsDoThis;
     }
   };
 
   return (
     <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       <View style={styles.content}>
-        <Text style={styles.readyText}>Ready?</Text>
+        <Text style={styles.readyText}>{t.ready}</Text>
         
         <Text style={styles.exerciseName}>{exerciseName}</Text>
         

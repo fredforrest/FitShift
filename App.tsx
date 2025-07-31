@@ -14,6 +14,7 @@ import WorkoutExecution from './src/components/WorkoutExecution';
 import WorkoutSummary from './src/components/WorkoutSummary';
 import { WorkoutGenerator } from './src/services/WorkoutGenerator';
 import { WorkoutSession, WorkoutProgress } from './src/types/Exercise';
+import { LocalizationProvider } from './src/localization/LocalizationContext';
 
 type AppState = 'setup' | 'workout' | 'summary';
 
@@ -81,10 +82,12 @@ function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#667eea" />
-      {renderCurrentScreen()}
-    </View>
+    <LocalizationProvider defaultLanguage="da">
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="#667eea" />
+        {renderCurrentScreen()}
+      </View>
+    </LocalizationProvider>
   );
 }
 
