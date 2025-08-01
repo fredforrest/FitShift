@@ -34,10 +34,10 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout, onBack }) =
   ] as const;
 
   const durationOptions = [
-    { value: 5, label: '5min', description: 'Hurtig energi boost' },
-    { value: 10, label: '10min', description: 'Standard pause' },
-    { value: 15, label: '15min', description: 'Grundig træning' },
-    { value: 20, label: '20min', description: 'Komplet workout' }
+    { value: 5, label: '5min'},
+    { value: 10, label: '10min' },
+    { value: 15, label: '15min' },
+    { value: 20, label: '20min' }
   ];
 
   return (
@@ -163,16 +163,6 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout, onBack }) =
                   }
                 ]}>
                   {option.label}
-                </Text>
-                <Text style={[
-                  styles.durationDescription,
-                  { 
-                    color: selectedDuration === option.value 
-                      ? theme.colors.buttonText 
-                      : theme.colors.textMuted 
-                  }
-                ]}>
-                  {option.description}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -315,6 +305,7 @@ const styles = StyleSheet.create({
     // backgroundColor removed - now using theme
     borderRadius: 12,
     alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
     // borderColor removed - now using theme
   },
@@ -326,18 +317,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     // color removed - now using theme
-    marginBottom: 2,
-  },
-  selectedDurationText: {
-    // color removed - now using theme
-  },
-  durationDescription: {
-    fontSize: 12,
-    // color removed - now using theme
     textAlign: 'center',
-  },
-  selectedDurationDescText: {
-    // color removed - now using theme
   },
   startButton: {
     marginTop: 20,

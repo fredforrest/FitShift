@@ -77,7 +77,7 @@ export const exerciseDatabase: Exercise[] = [
     category: 'full',
     muscleGroups: ['core', 'shoulders', 'back'],
     executionType: 'timer',
-    duration: 30,
+    duration: 45,
     instructions: [
       'Start in push-up position',
       'Hold your body straight from head to heels',
@@ -231,7 +231,7 @@ export const exerciseDatabase: Exercise[] = [
     category: 'full',
     muscleGroups: ['core', 'obliques', 'shoulders'],
     executionType: 'timer',
-    duration: 20,
+    duration: 30,
     instructions: [
       'Lie on your side, prop up on your elbow',
       'Lift your hips to form a straight line',

@@ -32,6 +32,7 @@ export interface Translations {
   timeRemaining: string;
   reps: string;
   sets: string;
+  restBetweenSets: string;
   keepGoing: string;
   
   // Exercise Types
@@ -44,6 +45,12 @@ export interface Translations {
   almostThere: string;
   letsDoThis: string;
   go: string;
+  
+  // Rest Screen
+  rest: string;
+  restDescription: string;
+  secondsRemaining: string;
+  skipRest: string;
   
   // Workout Summary
   workoutComplete: string;
@@ -131,6 +138,7 @@ export const translations: { [key: string]: Translations } = {
     timeRemaining: "Tid Tilbage",
     reps: "gentagelser",
     sets: "sæt",
+    restBetweenSets: "Hold 30-60 sekunders pause mellem hvert sæt",
     keepGoing: "Bliv ved!",
     
     // Exercise Types
@@ -143,6 +151,12 @@ export const translations: { [key: string]: Translations } = {
     almostThere: "Næsten der!",
     letsDoThis: "Lad os gøre det!",
     go: "KØR!",
+    
+    // Rest Screen
+    rest: "Pause",
+    restDescription: "Tag en dyb indånding og forbered dig til næste øvelse",
+    secondsRemaining: "sekunder tilbage",
+    skipRest: "Spring pause over",
     
     // Workout Summary
     workoutComplete: "Træning Færdig!",
@@ -229,6 +243,7 @@ export const translations: { [key: string]: Translations } = {
     timeRemaining: "Time Remaining",
     reps: "reps",
     sets: "sets",
+    restBetweenSets: "Rest 30-60 seconds between each set",
     keepGoing: "Keep going!",
     
     // Exercise Types
@@ -241,6 +256,12 @@ export const translations: { [key: string]: Translations } = {
     almostThere: "Almost there!",
     letsDoThis: "Let's do this!",
     go: "GO!",
+    
+    // Rest Screen
+    rest: "Rest",
+    restDescription: "Take a deep breath and prepare for the next exercise",
+    secondsRemaining: "seconds remaining",
+    skipRest: "Skip rest",
     
     // Workout Summary
     workoutComplete: "Workout Complete!",

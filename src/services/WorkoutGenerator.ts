@@ -93,24 +93,48 @@ export class WorkoutGenerator {
     const adjusted = { ...exercise };
     
     switch (approach) {
-      case 'quick': // 5 min - reduce intensity for quick breaks
+      case 'quick': // 5 min - improve with 2 sets and better reps for upper body
         if (exercise.executionType === 'timer') {
           adjusted.duration = Math.max(20, (exercise.duration || 30) - 10);
         } else {
-          adjusted.reps = Math.max(5, (exercise.reps || 10) - 3);
-          adjusted.sets = 1; // Single set for quick breaks
+          // Automatically add 2 sets for 5-minute workouts
+          adjusted.sets = 2;
+          // Increase reps to 8-12 range for upper body exercises
+          if (exercise.category === 'upper') {
+            adjusted.reps = Math.floor(Math.random() * 5) + 8; // Random 8-12
+          } else {
+            adjusted.reps = Math.max(8, (exercise.reps || 10) - 2);
+          }
         }
         break;
         
-      case 'standard': // 10 min - standard workout
-        // Keep original values
+      case 'standard': // 10 min - improve with 2 sets and better reps for upper body
+        if (exercise.executionType === 'timer') {
+          // Keep original duration for timer exercises
+        } else {
+          // Automatically add 2 sets for 10-minute workouts
+          adjusted.sets = 2;
+          // Increase reps to 8-12 range for upper body exercises
+          if (exercise.category === 'upper') {
+            adjusted.reps = Math.floor(Math.random() * 5) + 8; // Random 8-12
+          } else {
+            // Keep original reps for lower body and full body
+            adjusted.reps = exercise.reps || 10;
+          }
+        }
         break;
         
       case 'thorough': // 15 min - slightly increase
         if (exercise.executionType === 'timer') {
           adjusted.duration = (exercise.duration || 30) + 10;
         } else {
-          adjusted.reps = (exercise.reps || 10) + 2;
+          // For upper body exercises, use 8-12 range
+          if (exercise.category === 'upper') {
+            adjusted.reps = Math.floor(Math.random() * 5) + 8; // Random 8-12
+          } else {
+            adjusted.reps = (exercise.reps || 10) + 2;
+          }
+          adjusted.sets = Math.max(2, adjusted.sets || 1);
         }
         break;
         
@@ -118,7 +142,12 @@ export class WorkoutGenerator {
         if (exercise.executionType === 'timer') {
           adjusted.duration = (exercise.duration || 30) + 15;
         } else {
-          adjusted.reps = (exercise.reps || 10) + 3;
+          // For upper body exercises, use 8-12 range
+          if (exercise.category === 'upper') {
+            adjusted.reps = Math.floor(Math.random() * 5) + 8; // Random 8-12
+          } else {
+            adjusted.reps = (exercise.reps || 10) + 3;
+          }
           adjusted.sets = Math.max(2, adjusted.sets || 1);
         }
         break;

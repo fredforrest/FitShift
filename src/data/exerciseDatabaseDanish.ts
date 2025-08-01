@@ -77,7 +77,7 @@ export const exerciseDatabaseDanish: Exercise[] = [
     category: 'full',
     muscleGroups: ['core', 'skuldre', 'ryg'],
     executionType: 'timer',
-    duration: 30,
+    duration: 45,
     instructions: [
       'Start i armbøjningsposition',
       'Hold din krop lige fra hoved til hæle',
@@ -231,7 +231,7 @@ export const exerciseDatabaseDanish: Exercise[] = [
     category: 'full',
     muscleGroups: ['core', 'skrå mavemuskler', 'skuldre'],
     executionType: 'timer',
-    duration: 20,
+    duration: 30,
     instructions: [
       'Lig på siden, støt dig på din albue',
       'Løft dine hofter så du danner en lige linje',

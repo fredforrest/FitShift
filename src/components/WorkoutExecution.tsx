@@ -26,11 +26,13 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
   onWorkoutComplete,
   onBackToSetup,
 }) => {
-  const { t } = useLocalization();
+  const { t, language } = useLocalization();
   const { theme } = useTheme();
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [showReady, setShowReady] = useState(true);
+  const [showRest, setShowRest] = useState(false);
+  const [restTimeRemaining, setRestTimeRemaining] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [progress, setProgress] = useState<WorkoutProgress[]>([]);
   const [scaleAnim] = useState(new Animated.Value(1));
@@ -51,6 +53,22 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
 
     return () => clearInterval(interval);
   }, [isActive, timeRemaining]);
+
+  useEffect(() => {
+    let restInterval: NodeJS.Timeout;
+    
+    if (showRest && restTimeRemaining > 0) {
+      restInterval = setInterval(() => {
+        setRestTimeRemaining((prev) => prev - 1);
+      }, 1000);
+    } else if (restTimeRemaining === 0 && showRest) {
+      // Rest period complete, move to next exercise
+      setShowRest(false);
+      setCurrentExerciseIndex(prev => prev + 1);
+    }
+
+    return () => clearInterval(restInterval);
+  }, [showRest, restTimeRemaining]);
 
   useEffect(() => {
     // Initialize timer for current exercise
@@ -115,11 +133,98 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
         onWorkoutComplete(progress);
       }, 1000);
     } else {
-      // Move to next exercise
-      setTimeout(() => {
-        setCurrentExerciseIndex(prev => prev + 1);
-      }, 1500);
+      // Start rest period between exercises (20-30 seconds random)
+      const restDuration = Math.floor(Math.random() * 11) + 20; // Random 20-30 seconds
+      setRestTimeRemaining(restDuration);
+      setShowRest(true);
     }
+  };
+
+  const renderRestScreen = () => {
+    const restStyles = {
+      container: {
+        flex: 1,
+        backgroundColor: theme.colors.primary,
+        paddingTop: 50,
+      },
+      restContainer: {
+        flex: 1,
+        justifyContent: 'center' as const,
+        alignItems: 'center' as const,
+        padding: 20,
+      },
+      restTitle: {
+        fontSize: 32,
+        fontWeight: 'bold' as const,
+        color: theme.colors.accent,
+        marginBottom: 12,
+        textAlign: 'center' as const,
+      },
+      restSubtitle: {
+        fontSize: 16,
+        color: theme.colors.textSecondary,
+        textAlign: 'center' as const,
+        marginBottom: 40,
+        lineHeight: 24,
+      },
+      restTimerContainer: {
+        alignItems: 'center' as const,
+        marginBottom: 40,
+      },
+      restTimerText: {
+        fontSize: 72,
+        fontWeight: 'bold' as const,
+        color: theme.colors.accent,
+        marginBottom: 8,
+      },
+      restTimerLabel: {
+        fontSize: 16,
+        color: theme.colors.textSecondary,
+        textAlign: 'center' as const,
+      },
+      skipRestButton: {
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 8,
+        marginTop: 20,
+        backgroundColor: theme.colors.accent,
+      },
+      skipRestButtonText: {
+        fontSize: 16,
+        fontWeight: '600' as const,
+        color: theme.colors.buttonText,
+      },
+    };
+
+    return (
+      <View style={restStyles.container}>
+        <View style={restStyles.restContainer}>
+          <Text style={restStyles.restTitle}>
+            {t.rest}
+          </Text>
+          <Text style={restStyles.restSubtitle}>
+            {t.restDescription}
+          </Text>
+          <View style={restStyles.restTimerContainer}>
+            <Text style={restStyles.restTimerText}>{restTimeRemaining}</Text>
+            <Text style={restStyles.restTimerLabel}>
+              {t.secondsRemaining}
+            </Text>
+          </View>
+          <TouchableOpacity 
+            style={restStyles.skipRestButton}
+            onPress={() => {
+              setShowRest(false);
+              setCurrentExerciseIndex(prev => prev + 1);
+            }}
+          >
+            <Text style={restStyles.skipRestButtonText}>
+              {t.skipRest}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
   };
 
   if (showReady) {
@@ -129,6 +234,10 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
         onReady={handleReadyComplete}
       />
     );
+  }
+
+  if (showRest) {
+    return renderRestScreen();
   }
 
   const skipExercise = () => {
@@ -260,6 +369,21 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
       marginBottom: 4,
       lineHeight: 20,
     },
+    restNoticeContainer: {
+      marginTop: 12,
+      padding: 12,
+      backgroundColor: theme.colors.accent + '15',
+      borderRadius: 8,
+      borderLeftWidth: 3,
+      borderLeftColor: theme.colors.accent,
+    },
+    restNoticeText: {
+      fontSize: 14,
+      color: theme.colors.accent,
+      fontWeight: '500',
+      textAlign: 'center',
+      lineHeight: 20,
+    },
     controlsContainer: {
       padding: 20,
       paddingBottom: 40,
@@ -365,6 +489,15 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
               {index + 1}. {instruction}
             </Text>
           ))}
+          
+          {/* Rest Period Notice for Multi-Set Dynamic Exercises */}
+          {currentExercise.executionType === 'reps' && (currentExercise.sets || 1) > 1 && (
+            <View style={styles.restNoticeContainer}>
+              <Text style={styles.restNoticeText}>
+                💡 {t.restBetweenSets}
+              </Text>
+            </View>
+          )}
         </View>
       </Animated.View>
 
