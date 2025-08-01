@@ -4,11 +4,10 @@ import {
   Text,
   StyleSheet,
   Animated,
-  Dimensions,
+  AccessibilityInfo,
 } from 'react-native';
 import { useLocalization } from '../localization/LocalizationContext';
-
-const { width, height } = Dimensions.get('window');
+import { useTheme } from '../theme/ThemeContext';
 
 interface ReadyScreenProps {
   onReady: () => void;
@@ -19,13 +18,17 @@ const ReadyScreen: React.FC<ReadyScreenProps> = ({ onReady, exerciseName }) => {
   const [countdown, setCountdown] = useState(3);
   const [scaleAnim] = useState(new Animated.Value(0));
   const [fadeAnim] = useState(new Animated.Value(1));
-  const { t } = useLocalization();
+  const { t, language } = useLocalization();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCountdown((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
+          // Announce to screen readers
+          AccessibilityInfo.announceForAccessibility(t.go);
+          
           // Fade out and call onReady
           Animated.timing(fadeAnim, {
             toValue: 0,
@@ -36,12 +39,15 @@ const ReadyScreen: React.FC<ReadyScreenProps> = ({ onReady, exerciseName }) => {
           });
           return 0;
         }
+        
+        // Announce countdown for screen readers
+        AccessibilityInfo.announceForAccessibility(prev.toString());
         return prev - 1;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [fadeAnim, onReady, t.go]);
 
   useEffect(() => {
     // Animate the countdown number
@@ -57,7 +63,7 @@ const ReadyScreen: React.FC<ReadyScreenProps> = ({ onReady, exerciseName }) => {
         useNativeDriver: true,
       }),
     ]).start();
-  }, [countdown]);
+  }, [countdown, scaleAnim]);
 
   const getCountdownText = () => {
     if (countdown === 0) return t.go;
@@ -78,23 +84,52 @@ const ReadyScreen: React.FC<ReadyScreenProps> = ({ onReady, exerciseName }) => {
   };
 
   return (
-    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+    <Animated.View 
+      style={[styles.container, { opacity: fadeAnim, backgroundColor: theme.colors.primary }]}
+      accessible={true}
+      accessibilityLabel={`${t.ready} ${exerciseName}. ${getMotivationalText()}`}
+    >
       <View style={styles.content}>
-        <Text style={styles.readyText}>{t.ready}</Text>
+        <Text 
+          style={[styles.readyText, { color: theme.colors.accent }]}
+          accessible={true}
+          accessibilityRole="header"
+        >
+          {t.ready}
+        </Text>
         
-        <Text style={styles.exerciseName}>{exerciseName}</Text>
+        <Text 
+          style={[styles.exerciseName, { color: theme.colors.text }]}
+          accessible={true}
+          accessibilityRole="text"
+        >
+          {exerciseName}
+        </Text>
         
-        <Text style={styles.motivationalText}>
+        <Text 
+          style={[styles.motivationalText, { color: theme.colors.textMuted }]}
+          accessible={true}
+        >
           {getMotivationalText()}
         </Text>
         
-        <Animated.View style={[
-          styles.countdownContainer,
-          { transform: [{ scale: scaleAnim }] }
-        ]}>
+        <Animated.View 
+          style={[
+            styles.countdownContainer,
+            { 
+              transform: [{ scale: scaleAnim }],
+              backgroundColor: theme.colors.accent,
+            }
+          ]}
+          accessible={true}
+          accessibilityLabel={countdown === 0 ? t.go : `${countdown} ${language === 'da' ? 'sekunder' : 'seconds'}`}
+          accessibilityRole="timer"
+        >
           <Text style={[
             styles.countdownText,
-            { color: countdown === 0 ? '#4CAF50' : '#667eea' }
+            { 
+              color: countdown === 0 ? theme.colors.success : theme.colors.buttonText,
+            }
           ]}>
             {getCountdownText()}
           </Text>
@@ -107,7 +142,6 @@ const ReadyScreen: React.FC<ReadyScreenProps> = ({ onReady, exerciseName }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(102, 126, 234, 0.95)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -118,19 +152,16 @@ const styles = StyleSheet.create({
   readyText: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: 'white',
     marginBottom: 20,
   },
   exerciseName: {
     fontSize: 24,
     fontWeight: '600',
-    color: 'white',
     textAlign: 'center',
     marginBottom: 30,
   },
   motivationalText: {
     fontSize: 18,
-    color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     marginBottom: 40,
   },
@@ -138,7 +169,6 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',

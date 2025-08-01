@@ -165,35 +165,32 @@ const WorkoutSummary: React.FC<WorkoutSummaryProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#1A4A5C',
   },
   header: {
     padding: 30,
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#1A4A5C',
   },
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#4FC3F7',
     marginBottom: 12,
   },
   motivationalMessage: {
     fontSize: 16,
-    color: '#667eea',
+    color: '#B0C4DE',
     textAlign: 'center',
     lineHeight: 22,
   },
   summaryCard: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(79, 195, 247, 0.1)',
     borderRadius: 16,
     padding: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
+    borderWidth: 1,
+    borderColor: 'rgba(79, 195, 247, 0.3)',
   },
   statsContainer: {
     flexDirection: 'row',
@@ -206,12 +203,12 @@ const styles = StyleSheet.create({
   statNumber: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#667eea',
+    color: '#4FC3F7',
     marginBottom: 4,
   },
   statLabel: {
     fontSize: 14,
-    color: '#666',
+    color: '#B0C4DE',
     fontWeight: '500',
   },
   progressBarContainer: {
@@ -219,19 +216,19 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: 8,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: 'rgba(79, 195, 247, 0.3)',
     borderRadius: 4,
     marginBottom: 8,
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#667eea',
+    backgroundColor: '#4FC3F7',
     borderRadius: 4,
   },
   progressText: {
     textAlign: 'center',
     fontSize: 14,
-    color: '#666',
+    color: '#B0C4DE',
   },
   exerciseList: {
     margin: 20,
@@ -240,19 +237,16 @@ const styles = StyleSheet.create({
   listTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#333',
+    color: '#4FC3F7',
     marginBottom: 16,
   },
   exerciseItem: {
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(79, 195, 247, 0.1)',
     borderRadius: 12,
     padding: 16,
     marginBottom: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: 'rgba(79, 195, 247, 0.2)',
   },
   exerciseInfo: {
     flex: 1,
@@ -266,12 +260,12 @@ const styles = StyleSheet.create({
   exerciseName: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: '#E0E0E0',
     flex: 1,
   },
   completedExercise: {
     textDecorationLine: 'line-through',
-    color: '#999',
+    color: '#B0C4DE',
   },
   statusIndicator: {
     width: 24,
@@ -287,7 +281,7 @@ const styles = StyleSheet.create({
   },
   exerciseDetails: {
     fontSize: 14,
-    color: '#666',
+    color: '#B0C4DE',
   },
   buttonContainer: {
     padding: 20,
@@ -299,18 +293,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   primaryButton: {
-    backgroundColor: '#667eea',
+    backgroundColor: '#4FC3F7',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   primaryButtonText: {
-    color: 'white',
+    color: '#1A4A5C',
     fontSize: 16,
     fontWeight: 'bold',
   },
   secondaryButton: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: 'rgba(79, 195, 247, 0.2)',
+    borderWidth: 1,
+    borderColor: 'rgba(79, 195, 247, 0.4)',
   },
   secondaryButtonText: {
-    color: '#666',
+    color: '#4FC3F7',
     fontSize: 16,
     fontWeight: '500',
   },

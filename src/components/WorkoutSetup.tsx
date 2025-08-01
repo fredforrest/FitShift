@@ -4,22 +4,22 @@ import {
   Text,
   TouchableOpacity,
   StyleSheet,
-  Dimensions,
   ScrollView,
 } from 'react-native';
 import { useLocalization } from '../localization/LocalizationContext';
-
-const { width } = Dimensions.get('window');
+import { useTheme } from '../theme/ThemeContext';
 
 interface WorkoutSetupProps {
   onStartWorkout: (focus: 'full' | 'upper' | 'lower', difficulty: 'beginner' | 'intermediate' | 'advanced', duration: number) => void;
+  onBack?: () => void;
 }
 
-const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
+const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout, onBack }) => {
   const [selectedFocus, setSelectedFocus] = useState<'full' | 'upper' | 'lower'>('full');
   const [selectedDifficulty, setSelectedDifficulty] = useState<'beginner' | 'intermediate' | 'advanced'>('beginner');
   const [selectedDuration, setSelectedDuration] = useState<number>(10);
-  const { t } = useLocalization();
+  const { t, language } = useLocalization();
+  const { theme } = useTheme();
 
   const focusOptions = [
     { key: 'full', label: t.fullBody, icon: '🏋️', description: t.fullBodyDesc },
@@ -41,36 +41,56 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
   ];
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.primary }]} showsVerticalScrollIndicator={false}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>{t.appTitle}</Text>
-        <Text style={styles.headerSubtitle}>{t.appSubtitle}</Text>
+        {onBack && (
+          <TouchableOpacity onPress={onBack} style={styles.backButton}>
+            <Text style={[styles.backButtonText, { color: theme.colors.accent }]}>
+              ← {language === 'da' ? 'Hjem' : 'Home'}
+            </Text>
+          </TouchableOpacity>
+        )}
+        <Text style={[styles.headerTitle, { color: theme.colors.text }]}>{t.appTitle}</Text>
+        <Text style={[styles.headerSubtitle, { color: theme.colors.textSecondary }]}>{t.appSubtitle}</Text>
       </View>
 
       <View style={styles.content}>
         {/* Focus Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{t.chooseFocus}</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t.chooseFocus}</Text>
           <View style={styles.optionsContainer}>
             {focusOptions.map((option) => (
               <TouchableOpacity
                 key={option.key}
                 style={[
                   styles.focusOption,
-                  selectedFocus === option.key && styles.selectedOption,
+                  {
+                    backgroundColor: selectedFocus === option.key 
+                      ? theme.colors.accent 
+                      : theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  }
                 ]}
                 onPress={() => setSelectedFocus(option.key)}
               >
                 <Text style={styles.optionIcon}>{option.icon}</Text>
                 <Text style={[
                   styles.optionLabel,
-                  selectedFocus === option.key && styles.selectedOptionText
+                  { 
+                    color: selectedFocus === option.key 
+                      ? theme.colors.buttonText 
+                      : theme.colors.text 
+                  }
                 ]}>
                   {option.label}
                 </Text>
                 <Text style={[
                   styles.optionDescription,
-                  selectedFocus === option.key && styles.selectedOptionDescription
+                  { 
+                    color: selectedFocus === option.key 
+                      ? theme.colors.buttonText 
+                      : theme.colors.textMuted 
+                  }
                 ]}>
                   {option.description}
                 </Text>
@@ -81,7 +101,7 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
 
         {/* Difficulty Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{t.selectDifficulty}</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t.selectDifficulty}</Text>
           <View style={styles.difficultyContainer}>
             {difficultyOptions.map((option) => (
               <TouchableOpacity
@@ -91,14 +111,22 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
                 <View
                   style={[
                     styles.difficultyOption,
-                    selectedDifficulty === option.key && styles.selectedDifficulty,
-                    selectedDifficulty === option.key && { backgroundColor: option.color[0] }
+                    {
+                      backgroundColor: selectedDifficulty === option.key 
+                        ? theme.colors.accent 
+                        : theme.colors.surface,
+                      borderColor: theme.colors.border,
+                    }
                   ]}
                 >
                   <Text style={styles.difficultyIcon}>{option.icon}</Text>
                   <Text style={[
                     styles.difficultyLabel,
-                    selectedDifficulty === option.key && styles.selectedDifficultyText
+                    { 
+                      color: selectedDifficulty === option.key 
+                        ? theme.colors.buttonText 
+                        : theme.colors.text 
+                    }
                   ]}>
                     {option.label}
                   </Text>
@@ -110,26 +138,39 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
 
         {/* Duration Selection */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>{t.workoutDuration}</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t.workoutDuration}</Text>
           <View style={styles.durationContainer}>
             {durationOptions.map((option) => (
               <TouchableOpacity
                 key={option.value}
                 style={[
                   styles.durationOption,
-                  selectedDuration === option.value && styles.selectedDuration,
+                  {
+                    backgroundColor: selectedDuration === option.value 
+                      ? theme.colors.accent 
+                      : theme.colors.surface,
+                    borderColor: theme.colors.border,
+                  }
                 ]}
                 onPress={() => setSelectedDuration(option.value)}
               >
                 <Text style={[
                   styles.durationText,
-                  selectedDuration === option.value && styles.selectedDurationText
+                  { 
+                    color: selectedDuration === option.value 
+                      ? theme.colors.buttonText 
+                      : theme.colors.text 
+                  }
                 ]}>
                   {option.label}
                 </Text>
                 <Text style={[
                   styles.durationDescription,
-                  selectedDuration === option.value && styles.selectedDurationDescText
+                  { 
+                    color: selectedDuration === option.value 
+                      ? theme.colors.buttonText 
+                      : theme.colors.textMuted 
+                  }
                 ]}>
                   {option.description}
                 </Text>
@@ -140,11 +181,11 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
 
         {/* Start Button */}
         <TouchableOpacity
-          style={styles.startButton}
+          style={[styles.startButton, { backgroundColor: theme.colors.accent }]}
           onPress={() => onStartWorkout(selectedFocus, selectedDifficulty, selectedDuration)}
         >
           <View style={styles.startButtonGradient}>
-            <Text style={styles.startButtonText}>{t.startWorkout}</Text>
+            <Text style={[styles.startButtonText, { color: theme.colors.buttonText }]}>{t.startWorkout}</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -155,24 +196,35 @@ const WorkoutSetup: React.FC<WorkoutSetupProps> = ({ onStartWorkout }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    // backgroundColor removed - now using theme
   },
   header: {
     paddingTop: 60,
     paddingBottom: 30,
     paddingHorizontal: 20,
     alignItems: 'center',
-    backgroundColor: '#667eea',
+    // backgroundColor removed - now using theme (will be handled by container)
+  },
+  backButton: {
+    position: 'absolute',
+    top: 70,
+    left: 20,
+    zIndex: 1,
+  },
+  backButtonText: {
+    // color removed - now using theme
+    fontSize: 16,
+    fontWeight: '600',
   },
   headerTitle: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: 'white',
+    // color removed - now using theme
     marginBottom: 5,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.9)',
+    // color removed - now using theme
   },
   content: {
     padding: 20,
@@ -183,47 +235,44 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#333',
+    // color removed - now using theme
     marginBottom: 15,
   },
   optionsContainer: {
     gap: 12,
   },
   focusOption: {
-    backgroundColor: 'white',
+    // backgroundColor removed - now using theme
     padding: 20,
     borderRadius: 12,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderWidth: 1,
+    // borderColor removed - now using theme
   },
   selectedOption: {
-    backgroundColor: '#667eea',
+    // backgroundColor removed - now using theme
     transform: [{ scale: 1.02 }],
   },
   optionIcon: {
-    fontSize: 30,
+    fontSize: 28,
     marginBottom: 8,
   },
   optionLabel: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    // color removed - now using theme
     marginBottom: 4,
   },
   selectedOptionText: {
-    color: 'white',
+    // color removed - now using theme
   },
   optionDescription: {
     fontSize: 14,
-    color: '#666',
+    // color removed - now using theme
     textAlign: 'center',
   },
   selectedOptionDescription: {
-    color: 'rgba(255, 255, 255, 0.9)',
+    // color removed - now using theme
   },
   difficultyContainer: {
     flexDirection: 'row',
@@ -235,9 +284,12 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'rgba(79, 195, 247, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(79, 195, 247, 0.3)',
   },
   selectedDifficulty: {
+    backgroundColor: '#4FC3F7',
     transform: [{ scale: 1.05 }],
   },
   difficultyIcon: {
@@ -247,10 +299,10 @@ const styles = StyleSheet.create({
   difficultyLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
+    color: '#E0E0E0',
   },
   selectedDifficultyText: {
-    color: 'white',
+    color: '#1A4A5C',
   },
   durationContainer: {
     flexDirection: 'row',
@@ -260,35 +312,32 @@ const styles = StyleSheet.create({
   durationOption: {
     flex: 1,
     padding: 16,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(79, 195, 247, 0.1)',
     borderRadius: 12,
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    borderWidth: 1,
+    borderColor: 'rgba(79, 195, 247, 0.3)',
   },
   selectedDuration: {
-    backgroundColor: '#667eea',
+    backgroundColor: '#4FC3F7',
     transform: [{ scale: 1.05 }],
   },
   durationText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: '#E0E0E0',
     marginBottom: 2,
   },
   selectedDurationText: {
-    color: 'white',
+    color: '#1A4A5C',
   },
   durationDescription: {
     fontSize: 12,
-    color: '#666',
+    color: '#B0C4DE',
     textAlign: 'center',
   },
   selectedDurationDescText: {
-    color: 'rgba(255, 255, 255, 0.9)',
+    color: '#1A4A5C',
   },
   startButton: {
     marginTop: 20,
@@ -298,12 +347,17 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 12,
     alignItems: 'center',
-    backgroundColor: '#667eea',
+    backgroundColor: '#4FC3F7',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   startButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#1A4A5C',
   },
 });
 

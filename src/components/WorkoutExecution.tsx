@@ -256,7 +256,7 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#1A4A5C',
     paddingTop: 50,
   },
   progressContainer: {
@@ -265,31 +265,28 @@ const styles = StyleSheet.create({
   },
   progressBar: {
     height: 6,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: 'rgba(79, 195, 247, 0.3)',
     borderRadius: 3,
     marginBottom: 8,
   },
   progressFill: {
     height: '100%',
-    backgroundColor: '#667eea',
+    backgroundColor: '#4FC3F7',
     borderRadius: 3,
   },
   progressText: {
     textAlign: 'center',
     fontSize: 14,
-    color: '#666',
+    color: '#B0C4DE',
     fontWeight: '500',
   },
   exerciseCard: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: 'rgba(79, 195, 247, 0.1)',
     borderRadius: 16,
     padding: 24,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(79, 195, 247, 0.3)',
   },
   exerciseHeader: {
     flexDirection: 'row',
@@ -300,7 +297,7 @@ const styles = StyleSheet.create({
   exerciseName: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#4FC3F7',
     flex: 1,
   },
   typeTag: {
@@ -315,7 +312,7 @@ const styles = StyleSheet.create({
   },
   exerciseDescription: {
     fontSize: 16,
-    color: '#666',
+    color: '#B0C4DE',
     marginBottom: 20,
     lineHeight: 22,
   },
@@ -329,12 +326,12 @@ const styles = StyleSheet.create({
   timerText: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#667eea',
+    color: '#4FC3F7',
     marginBottom: 4,
   },
   timerLabel: {
     fontSize: 16,
-    color: '#666',
+    color: '#B0C4DE',
   },
   repsContainer: {
     alignItems: 'center',
@@ -342,12 +339,12 @@ const styles = StyleSheet.create({
   repsText: {
     fontSize: 48,
     fontWeight: 'bold',
-    color: '#4CAF50',
+    color: '#4FC3F7',
     marginBottom: 4,
   },
   repsLabel: {
     fontSize: 16,
-    color: '#666',
+    color: '#B0C4DE',
   },
   instructionsContainer: {
     marginTop: 8,
@@ -355,12 +352,12 @@ const styles = StyleSheet.create({
   instructionsTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#333',
+    color: '#4FC3F7',
     marginBottom: 8,
   },
   instructionText: {
     fontSize: 14,
-    color: '#666',
+    color: '#B0C4DE',
     marginBottom: 4,
     lineHeight: 20,
   },
@@ -373,9 +370,15 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     marginBottom: 16,
+    backgroundColor: '#4FC3F7',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
   },
   primaryButtonText: {
-    color: 'white',
+    color: '#1A4A5C',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -388,11 +391,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     borderRadius: 8,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: 'rgba(79, 195, 247, 0.2)',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(79, 195, 247, 0.4)',
   },
   secondaryButtonText: {
-    color: '#666',
+    color: '#4FC3F7',
     fontSize: 16,
     fontWeight: '500',
   },

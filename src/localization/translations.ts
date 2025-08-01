@@ -79,13 +79,28 @@ export interface Translations {
   standardBreak: string;
   thoroughWorkout: string;
   completeWorkout: string;
+  
+  // Navigation
+  settings: string;
+  welcomeMessage: string;
+  startWorkoutSubtext: string;
+  
+  // Theme Settings
+  appearance: string;
+  themeDescription: string;
+  lightTheme: string;
+  darkTheme: string;
+  systemTheme: string;
+  lightThemeDesc: string;
+  darkThemeDesc: string;
+  systemThemeDesc: string;
 }
 
 export const translations: { [key: string]: Translations } = {
   da: {
     // App Title & Header
     appTitle: "FitShift",
-    appSubtitle: "Din Aktive Pause Ledsager",
+    appSubtitle: "Din Aktive Pause",
     
     // Workout Setup
     chooseFocus: "Vælg Dit Fokus",
@@ -134,12 +149,12 @@ export const translations: { [key: string]: Translations } = {
     exercises: "Øvelser",
     minutes: "Minutter",
     complete_percent: "% Færdig",
-    exerciseSummary: "Øvelses Sammendrag",
+    exerciseSummary: "Øvelses Oversigt",
     startAnother: "Start Endnu En Pause",
     backToSetup: "Tilbage til Opsætning",
     
     // Motivational Messages
-    outstanding: "🎉 Fremragende arbejde! Du gennemførte hele din pause træning!",
+    outstanding: "🎉 Fremragende arbejde! Du gennemførte hele din træning!",
     greatJob: "🔥 Flot arbejde! Du kom igennem det meste af din træning!",
     goodEffort: "💪 God indsats! Hver bevægelse tæller!",
     niceStart: "🌟 Fin start! Husk, konsistens er nøglen!",
@@ -162,7 +177,22 @@ export const translations: { [key: string]: Translations } = {
     quickBoost: "Hurtig energi boost",
     standardBreak: "Standard pause",
     thoroughWorkout: "Grundig træning",
-    completeWorkout: "Komplet træning"
+    completeWorkout: "Komplet træning",
+    
+    // Navigation
+    settings: "Indstillinger",
+    welcomeMessage: "Velkommen til din aktive pause!",
+    startWorkoutSubtext: "Start din træning nu",
+    
+    // Theme Settings
+    appearance: "Udseende",
+    themeDescription: "Vælg mellem lyst, mørkt eller automatisk tema",
+    lightTheme: "Lys tema",
+    darkTheme: "Mørkt tema",
+    systemTheme: "System",
+    lightThemeDesc: "Altid lyst tema",
+    darkThemeDesc: "Altid mørkt tema",
+    systemThemeDesc: "Følg enhedens indstilling"
   },
   
   en: {
@@ -245,6 +275,21 @@ export const translations: { [key: string]: Translations } = {
     quickBoost: "Quick energy boost",
     standardBreak: "Standard break",
     thoroughWorkout: "Thorough workout",
-    completeWorkout: "Complete workout"
+    completeWorkout: "Complete workout",
+    
+    // Navigation
+    settings: "Settings",
+    welcomeMessage: "Welcome to your active break!",
+    startWorkoutSubtext: "Start your workout now",
+    
+    // Theme Settings
+    appearance: "Appearance",
+    themeDescription: "Choose between light, dark, or automatic theme",
+    lightTheme: "Light theme",
+    darkTheme: "Dark theme",
+    systemTheme: "System",
+    lightThemeDesc: "Always light theme",
+    darkThemeDesc: "Always dark theme",
+    systemThemeDesc: "Follow device setting"
   }
 };
