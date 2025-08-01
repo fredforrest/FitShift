@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { useLocalization } from '../localization/LocalizationContext';
+import { useTheme } from '../theme/ThemeContext';
 
 interface LanguageSwitcherProps {
   style?: any;
@@ -9,11 +10,61 @@ interface LanguageSwitcherProps {
 
 export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ style, compact = false }) => {
   const { language, setLanguage } = useLocalization();
+  const { theme } = useTheme();
 
   const languages = [
     { code: 'da', flag: '🇩🇰', name: 'Dansk' },
     { code: 'en', flag: '🇺🇸', name: 'English' }
   ];
+
+  const styles = StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      backgroundColor: theme.colors.surface,
+      borderRadius: 12,
+      padding: 4,
+    },
+    compactContainer: {
+      flexDirection: 'row',
+      gap: 8,
+    },
+    languageButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: 16,
+      paddingVertical: 8,
+      borderRadius: 8,
+      gap: 8,
+    },
+    activeButton: {
+      backgroundColor: theme.colors.accent,
+    },
+    compactFlag: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      backgroundColor: theme.colors.surface,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 2,
+      borderColor: 'transparent',
+    },
+    activeFlag: {
+      borderColor: theme.colors.accent,
+      backgroundColor: theme.colors.accentSecondary + '20',
+    },
+    flagEmoji: {
+      fontSize: 20,
+    },
+    languageName: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: theme.colors.textSecondary,
+    },
+    activeText: {
+      color: theme.colors.buttonText,
+    },
+  });
 
   if (compact) {
     return (
@@ -57,52 +108,3 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ style, compa
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    backgroundColor: '#f5f5f5',
-    borderRadius: 12,
-    padding: 4,
-  },
-  compactContainer: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  languageButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 8,
-    gap: 8,
-  },
-  activeButton: {
-    backgroundColor: '#4A90E2',
-  },
-  compactFlag: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    backgroundColor: '#f5f5f5',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 2,
-    borderColor: 'transparent',
-  },
-  activeFlag: {
-    borderColor: '#4A90E2',
-    backgroundColor: '#E3F2FD',
-  },
-  flagEmoji: {
-    fontSize: 20,
-  },
-  languageName: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#666',
-  },
-  activeText: {
-    color: '#fff',
-  },
-});

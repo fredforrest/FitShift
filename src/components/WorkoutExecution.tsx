@@ -11,6 +11,7 @@ import {
 import { Exercise, WorkoutSession, WorkoutProgress } from '../types/Exercise';
 import ReadyScreen from './ReadyScreen';
 import { useLocalization } from '../localization/LocalizationContext';
+import { useTheme } from '../theme/ThemeContext';
 
 const { width, height } = Dimensions.get('window');
 
@@ -25,13 +26,14 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
   onWorkoutComplete,
   onBackToSetup,
 }) => {
+  const { t } = useLocalization();
+  const { theme } = useTheme();
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [showReady, setShowReady] = useState(true);
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [progress, setProgress] = useState<WorkoutProgress[]>([]);
   const [scaleAnim] = useState(new Animated.Value(1));
-  const { t } = useLocalization();
 
   const currentExercise = workout.exercises[currentExerciseIndex];
   const isLastExercise = currentExerciseIndex === workout.exercises.length - 1;
@@ -150,6 +152,156 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
     return ((currentExerciseIndex + (isActive ? 1 : 0)) / workout.exercises.length) * 100;
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.primary,
+      paddingTop: 50,
+    },
+    progressContainer: {
+      paddingHorizontal: 20,
+      marginBottom: 20,
+    },
+    progressBar: {
+      height: 6,
+      backgroundColor: theme.colors.surface,
+      borderRadius: 3,
+      marginBottom: 8,
+    },
+    progressFill: {
+      height: '100%',
+      backgroundColor: theme.colors.accent,
+      borderRadius: 3,
+    },
+    progressText: {
+      textAlign: 'center',
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+      fontWeight: '500',
+    },
+    exerciseCard: {
+      margin: 20,
+      backgroundColor: theme.colors.surface,
+      borderRadius: 16,
+      padding: 24,
+      borderWidth: 1,
+      borderColor: theme.colors.accent + '30',
+    },
+    exerciseHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: 12,
+    },
+    exerciseName: {
+      fontSize: 24,
+      fontWeight: 'bold',
+      color: theme.colors.accent,
+      flex: 1,
+    },
+    typeTag: {
+      paddingHorizontal: 12,
+      paddingVertical: 4,
+      borderRadius: 12,
+    },
+    typeText: {
+      color: 'white',
+      fontSize: 12,
+      fontWeight: 'bold',
+    },
+    exerciseDescription: {
+      fontSize: 16,
+      color: theme.colors.textSecondary,
+      marginBottom: 20,
+      lineHeight: 22,
+    },
+    metricsContainer: {
+      alignItems: 'center',
+      marginBottom: 24,
+    },
+    timerContainer: {
+      alignItems: 'center',
+    },
+    timerText: {
+      fontSize: 48,
+      fontWeight: 'bold',
+      color: theme.colors.accent,
+      marginBottom: 4,
+    },
+    timerLabel: {
+      fontSize: 16,
+      color: theme.colors.textSecondary,
+    },
+    repsContainer: {
+      alignItems: 'center',
+    },
+    repsText: {
+      fontSize: 48,
+      fontWeight: 'bold',
+      color: theme.colors.accent,
+      marginBottom: 4,
+    },
+    repsLabel: {
+      fontSize: 16,
+      color: theme.colors.textSecondary,
+    },
+    instructionsContainer: {
+      marginTop: 8,
+    },
+    instructionsTitle: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: theme.colors.accent,
+      marginBottom: 8,
+    },
+    instructionText: {
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+      marginBottom: 4,
+      lineHeight: 20,
+    },
+    controlsContainer: {
+      padding: 20,
+      paddingBottom: 40,
+    },
+    primaryButton: {
+      padding: 18,
+      borderRadius: 12,
+      alignItems: 'center',
+      marginBottom: 16,
+      backgroundColor: theme.colors.accent,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.3,
+      shadowRadius: 8,
+      elevation: 8,
+    },
+    primaryButtonText: {
+      color: theme.colors.primary,
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    secondaryButtons: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      gap: 12,
+    },
+    secondaryButton: {
+      flex: 1,
+      padding: 12,
+      borderRadius: 8,
+      backgroundColor: theme.colors.surface,
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.accent + '40',
+    },
+    secondaryButtonText: {
+      color: theme.colors.accent,
+      fontSize: 16,
+      fontWeight: '500',
+    },
+  });
+
   return (
     <View style={styles.container}>
       {/* Progress Bar */}
@@ -178,7 +330,7 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
           <Text style={styles.exerciseName}>{currentExercise.name}</Text>
           <View style={[
             styles.typeTag,
-            { backgroundColor: currentExercise.type === 'active' ? '#4CAF50' : '#2196F3' }
+            { backgroundColor: currentExercise.type === 'active' ? theme.colors.success : theme.colors.accent }
           ]}>
             <Text style={styles.typeText}>
               {currentExercise.type === 'active' ? t.active : t.hold}
@@ -222,7 +374,7 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
           <TouchableOpacity
             style={[
               styles.primaryButton,
-              { backgroundColor: isActive ? '#FF5722' : '#4CAF50' }
+              { backgroundColor: isActive ? theme.colors.error : theme.colors.success }
             ]}
             onPress={isActive ? pauseExercise : startExercise}
           >
@@ -232,7 +384,7 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
-            style={[styles.primaryButton, { backgroundColor: '#4CAF50' }]}
+            style={[styles.primaryButton, { backgroundColor: theme.colors.success }]}
             onPress={handleExerciseComplete}
           >
             <Text style={styles.primaryButtonText}>{t.complete}</Text>
@@ -252,155 +404,5 @@ const WorkoutExecution: React.FC<WorkoutExecutionProps> = ({
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1A4A5C',
-    paddingTop: 50,
-  },
-  progressContainer: {
-    paddingHorizontal: 20,
-    marginBottom: 20,
-  },
-  progressBar: {
-    height: 6,
-    backgroundColor: 'rgba(79, 195, 247, 0.3)',
-    borderRadius: 3,
-    marginBottom: 8,
-  },
-  progressFill: {
-    height: '100%',
-    backgroundColor: '#4FC3F7',
-    borderRadius: 3,
-  },
-  progressText: {
-    textAlign: 'center',
-    fontSize: 14,
-    color: '#B0C4DE',
-    fontWeight: '500',
-  },
-  exerciseCard: {
-    margin: 20,
-    backgroundColor: 'rgba(79, 195, 247, 0.1)',
-    borderRadius: 16,
-    padding: 24,
-    borderWidth: 1,
-    borderColor: 'rgba(79, 195, 247, 0.3)',
-  },
-  exerciseHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  exerciseName: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#4FC3F7',
-    flex: 1,
-  },
-  typeTag: {
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
-  },
-  typeText: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
-  },
-  exerciseDescription: {
-    fontSize: 16,
-    color: '#B0C4DE',
-    marginBottom: 20,
-    lineHeight: 22,
-  },
-  metricsContainer: {
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  timerContainer: {
-    alignItems: 'center',
-  },
-  timerText: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#4FC3F7',
-    marginBottom: 4,
-  },
-  timerLabel: {
-    fontSize: 16,
-    color: '#B0C4DE',
-  },
-  repsContainer: {
-    alignItems: 'center',
-  },
-  repsText: {
-    fontSize: 48,
-    fontWeight: 'bold',
-    color: '#4FC3F7',
-    marginBottom: 4,
-  },
-  repsLabel: {
-    fontSize: 16,
-    color: '#B0C4DE',
-  },
-  instructionsContainer: {
-    marginTop: 8,
-  },
-  instructionsTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#4FC3F7',
-    marginBottom: 8,
-  },
-  instructionText: {
-    fontSize: 14,
-    color: '#B0C4DE',
-    marginBottom: 4,
-    lineHeight: 20,
-  },
-  controlsContainer: {
-    padding: 20,
-    paddingBottom: 40,
-  },
-  primaryButton: {
-    padding: 18,
-    borderRadius: 12,
-    alignItems: 'center',
-    marginBottom: 16,
-    backgroundColor: '#4FC3F7',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  primaryButtonText: {
-    color: '#1A4A5C',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  secondaryButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    gap: 12,
-  },
-  secondaryButton: {
-    flex: 1,
-    padding: 12,
-    borderRadius: 8,
-    backgroundColor: 'rgba(79, 195, 247, 0.2)',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(79, 195, 247, 0.4)',
-  },
-  secondaryButtonText: {
-    color: '#4FC3F7',
-    fontSize: 16,
-    fontWeight: '500',
-  },
-});
 
 export default WorkoutExecution;

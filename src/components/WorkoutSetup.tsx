@@ -284,12 +284,12 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',
-    backgroundColor: 'rgba(79, 195, 247, 0.1)',
+    // backgroundColor removed - now using theme
     borderWidth: 1,
-    borderColor: 'rgba(79, 195, 247, 0.3)',
+    // borderColor removed - now using theme
   },
   selectedDifficulty: {
-    backgroundColor: '#4FC3F7',
+    // backgroundColor removed - now using theme
     transform: [{ scale: 1.05 }],
   },
   difficultyIcon: {
@@ -299,10 +299,10 @@ const styles = StyleSheet.create({
   difficultyLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#E0E0E0',
+    // color removed - now using theme
   },
   selectedDifficultyText: {
-    color: '#1A4A5C',
+    // color removed - now using theme
   },
   durationContainer: {
     flexDirection: 'row',
@@ -312,32 +312,32 @@ const styles = StyleSheet.create({
   durationOption: {
     flex: 1,
     padding: 16,
-    backgroundColor: 'rgba(79, 195, 247, 0.1)',
+    // backgroundColor removed - now using theme
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(79, 195, 247, 0.3)',
+    // borderColor removed - now using theme
   },
   selectedDuration: {
-    backgroundColor: '#4FC3F7',
+    // backgroundColor removed - now using theme
     transform: [{ scale: 1.05 }],
   },
   durationText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#E0E0E0',
+    // color removed - now using theme
     marginBottom: 2,
   },
   selectedDurationText: {
-    color: '#1A4A5C',
+    // color removed - now using theme
   },
   durationDescription: {
     fontSize: 12,
-    color: '#B0C4DE',
+    // color removed - now using theme
     textAlign: 'center',
   },
   selectedDurationDescText: {
-    color: '#1A4A5C',
+    // color removed - now using theme
   },
   startButton: {
     marginTop: 20,
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
     padding: 18,
     borderRadius: 12,
     alignItems: 'center',
-    backgroundColor: '#4FC3F7',
+    // backgroundColor removed - now using theme
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
@@ -357,7 +357,7 @@ const styles = StyleSheet.create({
   startButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#1A4A5C',
+    // color removed - now using theme
   },
 });
 
