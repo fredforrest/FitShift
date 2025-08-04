@@ -59,14 +59,6 @@ FitShift is a visually stunning React Native fitness app designed to promote hea
 - `SettingsScreen`: Theme and language preferences
 - `LanguageSwitcher`: Seamless Danish/English language toggle
 
-### **Intelligent Systems**
-- `WorkoutGenerator`: Smart exercise selection with automatic difficulty scaling
-- `Exercise Database`: Comprehensive bilingual library of bodyweight movements
-- **Automatic exercise enhancement**: 2 sets for short workouts, 8-12 reps for upper body
-- **Adaptive rest periods**: Smart pause timing between exercises and sets
-- **Theme System**: Complete light/dark mode with persistent preferences
-- **Localization System**: Full Danish/English translation support
-
 ## 🚀 **Getting Started**
 
 ### Prerequisites
