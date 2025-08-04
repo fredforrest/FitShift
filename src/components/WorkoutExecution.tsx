@@ -9,7 +9,7 @@ import {
   Alert,
 } from 'react-native';
 import { Exercise, WorkoutSession, WorkoutProgress } from '../types/Exercise';
-import ReadyScreen from './ReadyScreen';
+import ReadyScreen from '../screens/ReadyScreen';
 import { useLocalization } from '../localization/LocalizationContext';
 import { useTheme } from '../theme/ThemeContext';
 

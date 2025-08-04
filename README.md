@@ -161,11 +161,12 @@ src/
 │   ├── WorkoutSetup.tsx    # Workout configuration interface
 │   ├── WorkoutExecution.tsx # Exercise execution with timers
 │   ├── WorkoutSummary.tsx  # Post-workout statistics
-│   ├── ReadyScreen.tsx     # Exercise preparation countdown
-│   ├── HomeScreen.tsx      # Main navigation screen
-│   ├── SettingsScreen.tsx  # User preferences
 │   ├── LanguageSwitcher.tsx # Language toggle component
 │   └── AccessibleButton.tsx # Accessible button component
+├── screens/            # Application screens
+│   ├── HomeScreen.tsx      # Main navigation screen
+│   ├── SettingsScreen.tsx  # User preferences
+│   └── ReadyScreen.tsx     # Exercise preparation countdown
 ├── data/               # Exercise databases
 │   ├── exerciseDatabase.ts     # English exercise library
 │   └── exerciseDatabaseDanish.ts # Danish exercise library

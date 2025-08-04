@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { useLocalization } from '../localization/LocalizationContext';
 import { useTheme } from '../theme/ThemeContext';
-import { LanguageSwitcher } from './LanguageSwitcher';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 
 interface SettingsScreenProps {
   onBack: () => void;

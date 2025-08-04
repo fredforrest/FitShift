@@ -4,8 +4,8 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import { HomeScreen } from './src/components/HomeScreen';
-import { SettingsScreen } from './src/components/SettingsScreen';
+import { HomeScreen } from './src/screens/HomeScreen';
+import { SettingsScreen } from './src/screens/SettingsScreen';
 import WorkoutSetup from './src/components/WorkoutSetup';
 import WorkoutExecution from './src/components/WorkoutExecution';
 import WorkoutSummary from './src/components/WorkoutSummary';
