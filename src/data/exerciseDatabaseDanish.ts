@@ -3,6 +3,29 @@ import { Exercise } from '../types/Exercise';
 export const exerciseDatabaseDanish: Exercise[] = [
   // Upper Body Active Exercises
   {
+    id: 'wall-push-up',
+    name: 'Væg Armbøjninger',
+    description: 'Begyndervenlig armbøjningsvariant ved brug af væg',
+    type: 'active',
+    category: 'upper',
+    muscleGroups: ['bryst', 'skuldre', 'triceps'],
+    executionType: 'reps',
+    reps: 12,
+    sets: 2,
+    instructions: [
+      'Stå en armlængde fra en væg',
+      'Placér håndflader fladt mod væggen i skulderhøjde',
+      'Læn dig fremad og skub dig tilbage til startposition',
+      'Hold din krop lige gennem hele bevægelsen'
+    ],
+    tips: [
+      'Perfekt for begyndere eller dem med håndledsproblemer',
+      'Stå længere fra væggen for at øge sværhedsgrad',
+      'Fokuser på kontrolleret bevægelse'
+    ],
+    difficulty: 'beginner'
+  },
+  {
     id: 'push-up',
     name: 'Armbøjninger',
     description: 'Klassisk kropsvægtsøvelse der træner bryst, skuldre og triceps',
@@ -66,6 +89,121 @@ export const exerciseDatabaseDanish: Exercise[] = [
       'Fokuser på skulderstyrke'
     ],
     difficulty: 'intermediate'
+  },
+  {
+    id: 'wide-grip-push-up',
+    name: 'Bred Armbøjning',
+    description: 'Armbøjningsvariant der træner bryst med bredere håndplacering',
+    type: 'active',
+    category: 'upper',
+    muscleGroups: ['bryst', 'skuldre', 'triceps'],
+    executionType: 'reps',
+    reps: 8,
+    sets: 2,
+    instructions: [
+      'Start i planke position med hænder bredere end skuldre',
+      'Placér hænder cirka 1,5 gange skulderbredde fra hinanden',
+      'Sænk bryst mod gulvet',
+      'Skub dig op mens du bevarer bred håndposition'
+    ],
+    tips: [
+      'Træner brystmuskler mere end almindelige armbøjninger',
+      'Gå ikke for bredt for at undgå skulderbelastning',
+      'Hold core spændt gennem hele øvelsen'
+    ],
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'narrow-grip-push-up',
+    name: 'Smal Armbøjning',
+    description: 'Armbøjningsvariant med fokus på triceps med tæt håndplacering',
+    type: 'active',
+    category: 'upper',
+    muscleGroups: ['triceps', 'bryst', 'skuldre'],
+    executionType: 'reps',
+    reps: 6,
+    sets: 2,
+    instructions: [
+      'Start i planke position med hænder tæt sammen',
+      'Placér hænder direkte under dit bryst',
+      'Sænk bryst mod hænder mens albuerne holdes tæt på kroppen',
+      'Skub dig op mens du bevarer smal håndposition'
+    ],
+    tips: [
+      'Mere udfordrende end almindelige armbøjninger',
+      'Hold albuerne tæt på siden',
+      'Fantastisk til triceps udvikling'
+    ],
+    difficulty: 'intermediate'
+  },
+  {
+    id: 'archer-push-up',
+    name: 'Bred Armbøjning',
+    description: 'Avanceret en-arms domineret armbøjningsvariant',
+    type: 'active',
+    category: 'upper',
+    muscleGroups: ['bryst', 'skuldre', 'triceps', 'core'],
+    executionType: 'reps',
+    reps: 4,
+    sets: 2,
+    instructions: [
+      'Start i bred armbøjningsposition',
+      'Sænk kroppen mod en hånd mens du strækker den anden arm',
+      'Skub dig op primært ved brug af den bøjede arm',
+      'Skift side ved hver gentagelse'
+    ],
+    tips: [
+      'Dette er en progression mod en-arms armbøjninger',
+      'Start med lille bevægelsesudslag',
+      'Fokuser på den arbejdende arm'
+    ],
+    difficulty: 'advanced'
+  },
+  {
+    id: 'incline-push-up',
+    name: 'Skrå Armbøjning',
+    description: 'Nemmere armbøjningsvariant med forhøjet håndposition',
+    type: 'active',
+    category: 'upper',
+    muscleGroups: ['bryst', 'skuldre', 'triceps'],
+    executionType: 'reps',
+    reps: 10,
+    sets: 2,
+    instructions: [
+      'Placér hænder på en stol, skrivebord eller forhøjet overflade',
+      'Træd fødderne tilbage for at skabe en hældende planke position',
+      'Sænk bryst mod den forhøjede overflade',
+      'Skub dig tilbage til startposition'
+    ],
+    tips: [
+      'Perfekt progression mellem væg og gulv armbøjninger',
+      'Højere overflade = nemmere øvelse',
+      'Fantastisk til gradvis styrke opbygning'
+    ],
+    difficulty: 'beginner'
+  },
+  {
+    id: 'desk-dips',
+    name: 'Skrivebords Dips',
+    description: 'Triceps øvelse ved brug af stol eller skrivebordskant',
+    type: 'active',
+    category: 'upper',
+    muscleGroups: ['triceps', 'skuldre', 'bryst'],
+    executionType: 'reps',
+    reps: 8,
+    sets: 2,
+    instructions: [
+      'Sid på kanten af en stabil stol eller skrivebord',
+      'Placér hænder ved siden af dine hofter, fingre fremad',
+      'Glid fremad fra kanten og støt vægten med armene',
+      'Sænk kroppen ved at bøje albuerne, skub derefter op igen'
+    ],
+    tips: [
+      'Hold fødderne på gulvet for nemmere variant',
+      'Gå ikke for lavt for at beskytte skuldrene',
+      'Fantastisk kontor-venlig øvelse'
+    ],
+    difficulty: 'beginner'
   },
   
   // Upper Body Isometric Exercises
@@ -176,6 +314,29 @@ export const exerciseDatabaseDanish: Exercise[] = [
     ],
     difficulty: 'beginner'
   },
+  {
+    id: 'calf-raises',
+    name: 'Lægløft',
+    description: 'Simpel underkrops øvelse der træner lægmusklerne',
+    type: 'active',
+    category: 'lower',
+    muscleGroups: ['lægge'],
+    executionType: 'reps',
+    reps: 15,
+    sets: 2,
+    instructions: [
+      'Stå med fødderne skulderbredde fra hinanden',
+      'Rejs dig op på tæerne så højt som muligt',
+      'Hold kort i toppen',
+      'Sænk dig kontrolleret tilbage'
+    ],
+    tips: [
+      'Kan laves hvor som helst, når som helst',
+      'Hold fast i noget for balance hvis nødvendigt',
+      'Fokuser på sammentrækningen i toppen'
+    ],
+    difficulty: 'beginner'
+  },
 
   // Full Body Active Exercises
   {
@@ -220,6 +381,29 @@ export const exerciseDatabaseDanish: Exercise[] = [
       'Bevæg dig i et tempo du kan holde'
     ],
     difficulty: 'intermediate'
+  },
+  {
+    id: 'dead-bug',
+    name: 'Død Bille',
+    description: 'Core stabilitetsøvelse udført liggende',
+    type: 'active',
+    category: 'full',
+    muscleGroups: ['core', 'hoftefleksorer'],
+    executionType: 'reps',
+    reps: 8,
+    sets: 2,
+    instructions: [
+      'Lig på ryggen med armene strakt mod loftet',
+      'Bøj knæene til 90 grader, lår lodret',
+      'Sænk langsomt modsatte arm og ben mod gulvet',
+      'Vend tilbage til start og gentag med anden side'
+    ],
+    tips: [
+      'Hold lænden presset mod gulvet',
+      'Bevæg dig langsomt og kontrolleret',
+      'Perfekt til core styrke uden mavebøjninger'
+    ],
+    difficulty: 'beginner'
   },
 
   // Additional Isometric Exercises
