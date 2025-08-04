@@ -175,8 +175,8 @@ export const translations: { [key: string]: Translations } = {
     
     // Tips
     quickTips: "💡 Hurtige Tips",
-    tip1: "• Tag aktive pauser hver 25-30 minutter for optimal produktivitet",
-    tip2: "• Bliv hydreret gennem din arbejdsdag",
+    tip1: "• Tag aktive pauser hver 45-60 minutter for optimal produktivitet",
+    tip2: "• Husk væskeindtag gennem din arbejdsdag",
     tip3: "• Bland forskellige træningsfokus gennem ugen",
     
     // Instructions
@@ -280,8 +280,8 @@ export const translations: { [key: string]: Translations } = {
     
     // Tips
     quickTips: "💡 Quick Tips",
-    tip1: "• Take active breaks every 25-30 minutes for optimal productivity",
-    tip2: "• Stay hydrated throughout your workday",
+    tip1: "• Take active breaks every 45-60 minutes for optimal productivity",
+    tip2: "• Remember to stay hydrated throughout your workday",
     tip3: "• Mix different workout focuses throughout the week",
     
     // Instructions
